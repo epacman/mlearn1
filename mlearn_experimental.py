@@ -81,9 +81,9 @@ X = np.insert(X,4, 0,axis=1)
 period = 0
 for i in range(len(X)):
     if i >= 2:
-        X[i,2] = X[i-2,0]
-        X[i,3] = X[i-2,1]
-        X[i,4] = array[i-2,5]
+        X[i,2] = X[i-2,0] #gårdagens close-open
+        X[i,3] = X[i-2,1]   #gårdagens  open-lunch
+        X[i,4] = array[i-2,5] #gårdagens lunch-close
 #        
 
         

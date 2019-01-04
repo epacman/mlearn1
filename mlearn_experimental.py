@@ -75,15 +75,15 @@ Y = array[start:stop,6]
 opening = array[:,0]
 
 
-#X = np.insert(X,2, 0,axis=1)
-#X = np.insert(X,3, 0,axis=1)
-#X = np.insert(X,4, 0,axis=1)
-#period = 0
-#for i in range(len(X)):
-#    if i >= 2:
-#        X[i,2] = X[i-2,0]
-#        X[i,3] = X[i-2,1]
-#        X[i,4] = array[i-2,5]
+X = np.insert(X,2, 0,axis=1)
+X = np.insert(X,3, 0,axis=1)
+X = np.insert(X,4, 0,axis=1)
+period = 0
+for i in range(len(X)):
+    if i >= 2:
+        X[i,2] = X[i-2,0]
+        X[i,3] = X[i-2,1]
+        X[i,4] = array[i-2,5]
 #        
 
         
@@ -156,7 +156,7 @@ a= (openk - close)/openk * 100
 b= (lunch - openk)/openk * 100
 #c = 
 #   
-print(knn.predict([[a,b]]))
+#print(knn.predict([[a,b]]))
 #
 ##Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 
 ##så 0,5 % efter lunch i snitt men i spann 0,43-0,58% beroende på när i tid

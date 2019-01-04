@@ -34,16 +34,19 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 import numpy as np
-#from sklearn.tree import DecisionTreeClassifier
-#from sklearn.neighbors import KNeighborsClassifier
-#from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-#from sklearn.naive_bayes import GaussianNB
-#from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
 
 # Load dataset
-url = "mlearndata_clean.csv"
-names = ['first_minute', 'lunch', 'last_minute', 'yclose', 'closetoopen', 'opentolunch', 'lunchtoclose', 'rek']
+url = "mlearndata_clean_procent_aprildec18_alladata.csv"
+#names = ['first_minute', 'lunch', 'last_minute', 'yclose', 'yopen','ma5','ma5procent','ytot', 'closetopopen', 'opentolunch', 'lunchtoclose','rek']
+
+names = ['first_minute', 'lunch', 'last_minute', 'yclose', 'yopen','ytot', 'closetopopen', 'opentolunch', 'lunchtoclose','rek']
+
 dataset = pandas.read_csv(url, names=names)
 
 #print dataset.shape
@@ -61,32 +64,40 @@ dataset = pandas.read_csv(url, names=names)
 #
 #scatter_matrix(dataset)
 #plt.show()
-
+start = 0
+stop = -1
 
 # använd 20% som validation
 #vill använda kolumner 0,1,3 
 array = dataset.values
-X = array[:,4:6]
-openk = array[:,0:1]
-#Xlab = np.insert(X, 2, Xappend, axis=1)
-#Xappend = array[:,3]
-#np.append(X, Xappend)
-#X = array[:,4:6]
-Y = array[:,7]
-Ynum = array[:,6] #Antal punkter efter lunch
-#for i in range(len(Ynum)):
-#    if Ynum[i] > 20:
-#        Y[i] = "STRONG BUY"
-#    if Ynum[i] < -20:
-#        Y[i] = "STRONG SELL"
+X = array[start:stop,3:5]
+Y = array[start:stop,6]
+opening = array[:,0]
+
+
+#X = np.insert(X,2, 0,axis=1)
+#X = np.insert(X,3, 0,axis=1)
+#X = np.insert(X,4, 0,axis=1)
+#period = 0
+#for i in range(len(X)):
+#    if i >= 2:
+#        X[i,2] = X[i-2,0]
+#        X[i,3] = X[i-2,1]
+#        X[i,4] = array[i-2,5]
+#        
+
+        
+        
+
+#Ynum = array[:,8] #Antal punkter efter lunch
     
 #for i in range(len(Y)):
 #    Y[i] = int(Y[i])
 #Y=Y.astype('int')
     
-validation_size = 0.20
-seed = 7
-X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+validation_size = 0.1
+seed = 5
+X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed, shuffle=False)
 
 scoring = 'accuracy'
 
@@ -95,23 +106,23 @@ scoring = 'accuracy'
 
 
 # Spot Check Algorithms
-#models = []
-#models.append(('LR', LogisticRegression()))
-#models.append(('LDA', LinearDiscriminantAnalysis()))
-#models.append(('KNN', KNeighborsClassifier()))
-#models.append(('CART', DecisionTreeClassifier()))
-#models.append(('NB', GaussianNB()))
-#models.append(('SVM', SVC()))
-## evaluate each model in turn
-#results = []
-#names = []
-#for name, model in models:
-#	kfold = model_selection.KFold(n_splits=10, random_state=seed)
-#	cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
-#	results.append(cv_results)
-#	names.append(name)
-#	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-#	print(msg)
+models = []
+models.append(('LR', LogisticRegression()))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC()))
+# evaluate each model in turn
+results = []
+names = []
+for name, model in models:
+	kfold = model_selection.KFold(n_splits=10, random_state=seed)
+	cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+	results.append(cv_results)
+	names.append(name)
+	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+	print(msg)
 
 #%%
 #fig = plt.figure()
@@ -136,22 +147,26 @@ print(classification_report(Y_validation, predictions))
 #%%
 
 
-close = 1408
-openk = 1425
-lunch = 1440
-
-
-a= openk - close
-b= lunch - openk
-   
+close = 1393.5
+openk = 1367.5
+lunch = 1413
+##
+##
+a= (openk - close)/openk * 100
+b= (lunch - openk)/openk * 100
+#c = 
+#   
 print(knn.predict([[a,b]]))
+#
+##Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 
+##så 0,5 % efter lunch i snitt men i spann 0,43-0,58% beroende på när i tid
+#print(np.mean(np.abs(Ynum)))
+#print(np.mean(openk))
+#
+##Kolla procentuellt också, inte bara antal punkter
+#
 
-#Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 
-#så 0,5 % efter lunch i snitt men i spann 0,43-0,58% beroende på när i tid
-print(np.mean(np.abs(Ynum)))
-print(np.mean(openk))
 
-#Kolla procentuellt också, inte bara antal punkter
 
 
 

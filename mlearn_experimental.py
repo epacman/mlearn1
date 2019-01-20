@@ -148,10 +148,10 @@ print(classification_report(Y_validation, predictions))
 yyclose = 1474
 yopen = 1476
 ylunch = 1474
-yclose = 1474
+yclose = 1470
 
 openk = 1474
-lunch = 1474
+lunch = 1440
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -162,8 +162,13 @@ e = float(yclose - ylunch)/float(yclose) * 100
 
 #   
 
+
 ar = [c,d,e,a,b]
 plt.plot(ar)
+plt.show()
+kurser = [yyclose,yopen,ylunch,yclose,openk,lunch]
+plt.plot(kurser)
+plt.show()
 print(knn.predict([[a, b, c, d, e]]))
 
 #kolla så att BUY kan hända nån gång

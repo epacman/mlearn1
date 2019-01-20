@@ -80,10 +80,10 @@ X = np.insert(X,3, 0,axis=1)
 X = np.insert(X,4, 0,axis=1)
 period = 0
 for i in range(len(X)):
-    if i >= 2:
-        X[i,2] = X[i-2,0] #gårdagens close-open
-        X[i,3] = X[i-2,1]   #gårdagens  open-lunch
-        X[i,4] = array[i-2,5] #gårdagens lunch-close
+    if i >= 1:
+        X[i,2] = X[i-1,0] #gårdagens close-open
+        X[i,3] = X[i-1,1]   #gårdagens  open-lunch
+        X[i,4] = array[i-1,5] #gårdagens lunch-close
 #        
 
         
@@ -95,9 +95,9 @@ for i in range(len(X)):
 #    Y[i] = int(Y[i])
 #Y=Y.astype('int')
     
-validation_size = 0.1
-seed = 5
-X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed, shuffle=False)
+validation_size = 0.2
+seed = 103
+X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed, shuffle=True)
 
 scoring = 'accuracy'
 
@@ -145,18 +145,30 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
+yyclose = 1474
+yopen = 1476
+ylunch = 1474
+yclose = 1474
 
+openk = 1474
+lunch = 1474
+##
+a = float(openk - yclose)/float(openk) * 100
+b = float(lunch - openk)/float(openk) * 100
 
-close = 1393.5
-openk = 1367.5
-lunch = 1413
-##
-##
-a= (openk - close)/openk * 100
-b= (lunch - openk)/openk * 100
-#c = 
+c = float(yopen - yyclose)/float(yopen) * 100
+d = float(ylunch - yopen)/float(ylunch) * 100
+e = float(yclose - ylunch)/float(yclose) * 100
+
 #   
-#print(knn.predict([[a,b]]))
+
+ar = [c,d,e,a,b]
+plt.plot(ar)
+print(knn.predict([[a, b, c, d, e]]))
+
+#kolla så att BUY kan hända nån gång
+#print(knn.predict([[1.07, -0.13, 0.25, 0.29, -0.65]]))
+
 #
 ##Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 
 ##så 0,5 % efter lunch i snitt men i spann 0,43-0,58% beroende på när i tid

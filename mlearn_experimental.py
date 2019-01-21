@@ -151,7 +151,7 @@ ylunch = 1491
 yclose = 1499.5
 
 openk = 1501
-lunch = 1480
+lunch = 1489.5
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -162,17 +162,17 @@ e = float(yclose - ylunch)/float(yclose) * 100
 
 #   
 
+advice = knn.predict([[a, b, c, d, e]])
 
 ar = [c,d,e,a,b]
 #plt.plot(ar)
 #plt.show()
 kurser = [yyclose,yopen,ylunch,yclose,openk,lunch]
-plt.plot(kurser)
-plt.show()
-print(knn.predict([[a, b, c, d, e]]))
-
-#kolla så att BUY kan hända nån gång
-#print(knn.predict([[1.07, -0.13, 0.25, 0.29, -0.65]]))
+t=["YYCLOSE", "YOPEN", "YLUNCH", "YCLOSE", "OPEN", "LUNCH"]
+fig = plt.figure()
+plt.plot(t,kurser)
+#plt.show()
+fig.suptitle(advice[0], fontsize=14)
 
 #
 ##Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 

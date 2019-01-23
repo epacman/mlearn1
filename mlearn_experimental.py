@@ -125,15 +125,6 @@ for name, model in models:
 	print(msg)
 
 #%%
-#fig = plt.figure()
-#fig.suptitle('Algorithm Comparison')
-#ax = fig.add_subplot(111)
-#plt.boxplot(results)
-#ax.set_xticklabels(names)
-#plt.show()
-#
-# 
-#
 
 # Make predictions on validation dataset
 #knn = KNeighborsClassifier()
@@ -145,13 +136,13 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
-yyclose = 1474
-yopen = 1476
-ylunch = 1491
-yclose = 1499.5
+yyclose = 1494
+yopen = 1492.5
+ylunch = 1488
+yclose = 1486.5
 
-openk = 1501
-lunch = 1489.5
+openk = 1485
+lunch = 1482
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -160,13 +151,9 @@ c = float(yopen - yyclose)/float(yopen) * 100
 d = float(ylunch - yopen)/float(ylunch) * 100
 e = float(yclose - ylunch)/float(yclose) * 100
 
-#   
-
 advice = knn.predict([[a, b, c, d, e]])
 
 ar = [c,d,e,a,b]
-#plt.plot(ar)
-#plt.show()
 kurser = [yyclose,yopen,ylunch,yclose,openk,lunch]
 t=["YYCLOSE", "YOPEN", "YLUNCH", "YCLOSE", "OPEN", "LUNCH"]
 fig = plt.figure()
@@ -179,9 +166,15 @@ fig.suptitle(advice[0], fontsize=14)
 ##så 0,5 % efter lunch i snitt men i spann 0,43-0,58% beroende på när i tid
 #print(np.mean(np.abs(Ynum)))
 #print(np.mean(openk))
-#
-##Kolla procentuellt också, inte bara antal punkter
-#
+
+k = 10
+while k > -10:
+    a = float(lunch+k - openk)/float(openk) * 100
+    print lunch+k
+    print knn.predict([[a, b, c, d, e]])
+    k-=1
+
+
 
 
 

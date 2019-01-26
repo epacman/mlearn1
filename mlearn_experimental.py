@@ -65,7 +65,7 @@ dataset = pandas.read_csv(url, names=names)
 #scatter_matrix(dataset)
 #plt.show()
 start = 0
-stop = -1
+stop = -100 #-1
 
 # använd 20% som validation
 #vill använda kolumner 0,1,3 
@@ -136,13 +136,13 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
-yyclose = 1494
-yopen = 1492.5
+yyclose = 1478.5
+yopen = 1481.5
 ylunch = 1488
-yclose = 1486.5
+yclose = 1488.4
 
-openk = 1485
-lunch = 1482
+openk = 1495.5
+lunch = 1502.5
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -169,7 +169,7 @@ fig.suptitle(advice[0], fontsize=14)
 
 k = 10
 while k > -10:
-    a = float(lunch+k - openk)/float(openk) * 100
+    b = float(lunch+k - openk)/float(openk) * 100
     print lunch+k
     print knn.predict([[a, b, c, d, e]])
     k-=1

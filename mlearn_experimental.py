@@ -136,13 +136,13 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
-yyclose = 1478.5
-yopen = 1481.5
-ylunch = 1488
-yclose = 1488.4
+yyclose = 1492.5
+yopen = 1486
+ylunch = 1498
+yclose = 1503
 
-openk = 1495.5
-lunch = 1502.5
+openk = 1502
+lunch = 1502
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -173,6 +173,7 @@ while k > -10:
     print lunch+k
     print knn.predict([[a, b, c, d, e]])
     k-=1
+
 
 
 

@@ -69,6 +69,26 @@ close = close[1:-1]
 #kolla
 plt.plot(kurs[0:120])
 
+candles = np.zeros((2,5))
+hours_set = []
 
+#for k in range(len(oopen)+1):
+#    if k > 1:
+#        hours_set.append(oopen[k])
+#        hours_set.append(low[k])
+#        hours_set.append(high[k])
+#        hours_set.append(close[k])
+#        hours_set.append(is_last_hour[k])
+#        
+        
+#sätt ihop till stor array först, sedan stitcha ihop lagom många rader till feature-set
+        
+#candle = np.zeros(5)        
+for k in range(len(oopen)-2):
+    candle = [oopen[k],low[k],high[k],close[k],is_last_hour[k]]
+#    np.append(candles,candle,axis=0)
+    print candle
+    
+    
             
             

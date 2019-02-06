@@ -136,13 +136,13 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
-yyclose = 1492.5
-yopen = 1486
-ylunch = 1498
-yclose = 1503
+yyclose = 1542.5
+yopen = 1542
+ylunch = 1548
+yclose = 1552
 
-openk = 1502
-lunch = 1502
+openk = 1550
+lunch = 1550
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
@@ -159,7 +159,7 @@ t=["YYCLOSE", "YOPEN", "YLUNCH", "YCLOSE", "OPEN", "LUNCH"]
 fig = plt.figure()
 plt.plot(t,kurser)
 #plt.show()
-fig.suptitle(advice[0], fontsize=14)
+fig.suptitle(advice[0], fontsize=10)
 
 #
 ##Rör sig i snitt 7 punkter efter lunch. Index 1425 i snitt för dataset, 

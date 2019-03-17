@@ -76,12 +76,19 @@ temp = []
 for j in range(4,len(oopen)-1): 
     norm = np.mean([oopen[j-2],close[j-2]])
     
+    if (high[j] > oopen[j]):
+        advice = "BUY"
+        print "hej"
+    else:
+        advice = "SELL"
+        print "noll"
+        
     temp = [what_hour[j]-1, close[j-4]/norm,\
             oopen[j-3]/norm, high[j-3]/norm,low[j-3]/norm, close[j-3]/norm, \
             oopen[j-2]/norm, high[j-2]/norm,low[j-2]/norm, close[j-2]/norm, \
             oopen[j-1]/norm, high[j-1]/norm,low[j-1]/norm, close[j-1]/norm, \
             oopen[j]/norm, high[j]/norm,low[j]/norm, close[j]/norm,\
-            close[j] > close[j-1]]
+            advice]
     
     candles.append(temp)
     
@@ -89,12 +96,12 @@ Y = []
 X = []
     
 for k in range(len(candles)):
-    Y.append(candles[k][18])
-    X.append(candles[k][1:13])
+    Y.append(candles[k][-1])
+    X.append(candles[k][1:14])
     
     
 validation_size = 0.2
-seed = 154
+seed = 103
 X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed, shuffle=True)
 
 knn = LogisticRegression()

@@ -136,13 +136,13 @@ print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
 #%%
-yyclose = 1542.5
-yopen = 1542
-ylunch = 1548
+yyclose = 1559
+yopen = 1561.5
+ylunch = 1556.5
 yclose = 1552
 
-openk = 1550
-lunch = 1550
+openk = 1555
+lunch = 1570
 ##
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100

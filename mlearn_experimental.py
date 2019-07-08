@@ -26,7 +26,7 @@ print('pandas: {}'.format(pandas.__version__))
 import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
 
-from pandas.plotting import scatter_matrix
+#from pandas.plotting import scatter_matrix
 import matplotlib.pyplot as plt
 from sklearn import model_selection
 from sklearn.metrics import classification_report
@@ -97,7 +97,8 @@ for i in range(len(X)):
     
 validation_size = 0.2
 seed = 103
-X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed, shuffle=True)
+X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(\
+X, Y, test_size=validation_size, random_state=seed, shuffle=True)
 
 scoring = 'accuracy'
 
@@ -118,7 +119,8 @@ results = []
 names = []
 for name, model in models:
 	kfold = model_selection.KFold(n_splits=10, random_state=seed)
-	cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+	cv_results = model_selection.cross_val_score(\
+         model, X_train, Y_train, cv=kfold, scoring=scoring)
 	results.append(cv_results)
 	names.append(name)
 	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
@@ -135,15 +137,17 @@ print(accuracy_score(Y_validation, predictions))
 print(confusion_matrix(Y_validation, predictions))
 print(classification_report(Y_validation, predictions))
 
-#%%
-yyclose = 1492.5
-yopen = 1486
-ylunch = 1498
-yclose = 1503
+price = [1660, 1661, 1668.5, 1670.5, 1670.5, 1666]
 
-openk = 1502
-lunch = 1502
-##
+#83
+yyclose = 1649
+yopen = 1648.5
+ylunch = 1652.5
+yclose = 1652.5
+
+openk = 1646
+lunch = 1646
+
 a = float(openk - yclose)/float(openk) * 100
 b = float(lunch - openk)/float(openk) * 100
 
@@ -155,9 +159,9 @@ advice = knn.predict([[a, b, c, d, e]])
 
 ar = [c,d,e,a,b]
 kurser = [yyclose,yopen,ylunch,yclose,openk,lunch]
-t=["YYCLOSE", "YOPEN", "YLUNCH", "YCLOSE", "OPEN", "LUNCH"]
+#t=["YYCLOSE", "YOPEN", "YLUNCH", "YCLOSE", "OPEN", "LUNCH"]
 fig = plt.figure()
-plt.plot(t,kurser)
+plt.plot(kurser)
 #plt.show()
 fig.suptitle(advice[0], fontsize=14)
 
